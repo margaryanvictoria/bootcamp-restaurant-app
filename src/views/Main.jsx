@@ -1,10 +1,14 @@
 import React from 'react'
 import { ReactComponent as Icon } from '../icons/icon-restaurant.svg'
-import Signup from './Signup';
+import Signup from './Signup'
+import SignIn from './SignIn'
 
 const backgroundURL = "https://images.unsplash.com/photo-1574936145840-28808d77a0b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=975&q=80";
 
 export default function Main(props) {
+    const [showSignup, setShowSignup] = React.useState(false);
+    const [showSignin, setShowSignin] = React.useState(false);
+
     return (
         <div className="h-screen md:flex"> 
             {/* Background image */}  
@@ -19,14 +23,14 @@ export default function Main(props) {
                 } className="absolute md:static left-0 top-0 w-full md:w-1/2 h-full" >
                     
                 {/* Darken the background */}
-                <div className="visible md:hidden bg-black h-full w-full bg-opacity-25"
+                <div className="visible md:hidden bg-black h-full bg-opacity-25"
                     style={{
                         zIndex: -1
                     }}>
                 </div>
             </div>
             
-            <div className="flex flex-col justify-between h-full md:space-y-10 md:w-1/2 md:justify-center md:bg-black md:bg-opacity-50">
+            <div className="relative flex flex-col justify-between h-full md:space-y-10 md:w-1/2 md:justify-center md:bg-black md:bg-opacity-50">
                 <div className="pt-8 mx-auto my-auto md:flex-none md:my-0">
                     {/* This is the Header section */}
                     <Icon className="h-20 w-20 text-orange-500 bg-white rounded-lg p-1 fill-current mx-auto"/>
@@ -39,11 +43,20 @@ export default function Main(props) {
 
                 {/* These are the buttons */}
                 <div className="flex flex-col w-full items-center space-y-3 pb-10 px-5 max-w-sm mx-auto md:flex-none">
-                    <button className="px-3 py-2 w-full rounded-full bg-orange-500 text-white">Sign Up</button>
-                    <button className="px-3 py-2 w-full rounded-full bg-white text-orange-500">Sign In</button>
+                    <button className="px-3 py-2 w-full rounded-full bg-orange-500 text-white"
+                        onClick={() => {setShowSignup(true)}}>Sign Up</button>
+                    <button className="px-3 py-2 w-full rounded-full bg-white text-orange-500"
+                        onClick={() => {setShowSignin(true)}}>Sign In</button>
                 </div>
+            
+                {/* <Signup /> */}
+                {
+                    showSignup && <Signup onDismiss={() => setShowSignup(false)} />
+                }
+                {
+                    showSignin && <SignIn onDismissed={() => {setShowSignin(false)}} />
+                }
             </div>
-            {/* <Signup /> */}
         </div>
     )
 }
