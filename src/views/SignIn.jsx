@@ -49,7 +49,7 @@ export default function SignIn(props) {
                     <InputField isPassword={true} label="Password" />
                     <a href="#" className="text-right px-3 text-purple-500">Forgot password?</a>
                 </div>
-                <div>
+                <div className="flex space-x-2">
                     <Button className="w-full" buttonStyle={`${Button.styles.contained}`} text="Sign In"/>
                     <Button
                         className="w-full hidden md:inline-block"

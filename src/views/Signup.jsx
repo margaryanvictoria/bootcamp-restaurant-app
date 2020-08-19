@@ -21,7 +21,7 @@ export default function Signup(props) {
                 style={{
                    zIndex: -1 
                 }}
-                className="absolute left-0 bottom-0 w-full h-full md:hidden"
+                className="absolute left-0 bottom-0 w-full h-full visible md:hidden"
                 onClick={() => {
                     onDismiss && onDismiss();
                 }} />
@@ -41,7 +41,7 @@ export default function Signup(props) {
                     </span>
                     <div className="flex flex-col">
                         <div className="inline-block mx-auto md:my-auto border border-orange-500 rounded-full p-3">
-                            <Camera className="h-8 w-8"/>
+                            <Camera className="h-6 w-6"/>
                         </div>
                         <span className="text-xs font-hairline">Upload picture</span>
                     </div>
@@ -54,13 +54,13 @@ export default function Signup(props) {
                     <InputField label="Username" />
                     <InputField label="Password" isPassword={true} />
                 </div>
-                <div>
+                <div className="flex space-x-2">
                     <Button 
-                        className="mx-auto w-full text-center mb-5" 
+                        className="mx-auto w-full text-center" 
                         buttonStyle={`${Button.styles.contained}`} 
                         text="Create" />
                     <Button 
-                        className="hidden md:visible mx-auto w-full text-center"
+                        className="hidden md:inline-block mx-auto w-full text-center"
                         buttonStyle={`${Button.styles.text}`}
                         text="Cancel"
                         onClick={ () => {
