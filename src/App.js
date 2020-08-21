@@ -1,13 +1,6 @@
 import React from 'react';
 import Main from './views/Main';
-<<<<<<< HEAD
 import RESTaurant from './views/RESTaurant';
-=======
-import Signup from './views/Signup';
-import SignIn from './views/SignIn';
-import RESTaurant from './views/RESTaurant'
-
->>>>>>> 8479d36620200eb783ad58c41361fb7715b725fc
 
 function App() {
   const cookie = document.cookie;
@@ -29,7 +22,6 @@ function App() {
   const [signUpResult, setSignUpResult] = React.useState();
 
   return (
-<<<<<<< HEAD
     <>
       {
         isAuth ?
@@ -41,13 +33,6 @@ function App() {
         }} />
       }
     </>
-=======
-    <div>
-      {/* <Main />  */}
-      {/* <Signup /> */}
-      <RESTaurant />
-    </div>
->>>>>>> 8479d36620200eb783ad58c41361fb7715b725fc
   );
 }
 

@@ -91,15 +91,11 @@ export default function SignIn(props) {
                     <a href="#" className="text-right px-3 text-purple-500">Forgot password?</a>
                 </div>
                 <div className="flex space-x-2">
-<<<<<<< HEAD
                     <Button 
                         className="w-full" 
                         buttonStyle={`${Button.styles.contained}`} 
                         text="Sign In"
                         onClick={(ev) => doSignIn(ev)}/>
-=======
-                    <Button className="w-full" buttonStyle={`${Button.styles.contained}`} text="Sign In"/>
->>>>>>> 8479d36620200eb783ad58c41361fb7715b725fc
                     <Button
                         className="w-full hidden md:inline-block"
                         buttonStyle={`${Button.styles.contained}`}
