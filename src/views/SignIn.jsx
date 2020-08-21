@@ -9,7 +9,45 @@ const propTypes = {
 }
 
 export default function SignIn(props) {
-    const { onDismissed = undefined } = props;
+    const {onDismissed = undefined, authCallback = undefined} = props;
+    
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('')
+
+    const doSignIn = () => {
+        console.log("Attempting to sign in user: " + username);
+        fetch('http://localhost:9000/auth',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                }),
+                mode: 'cors'
+            })
+            .then(response => response.json())
+            .then(serverResponse => {
+                switch(serverResponse.code) {
+                    case 400: {
+                        authCallback(false);
+                    } break;
+                    case 200: {
+                        authCallback(true);
+                    } break;
+                    default: {
+                        authCallback(false);
+                    } break;
+                }
+            })
+            .catch(err => {
+                console.log("Request failed: " + err);
+
+                authCallback(false);
+            });
+    };
 
     return (
         <div 
@@ -45,12 +83,19 @@ export default function SignIn(props) {
                 </div>
                 {/* Body section */}
                 <div className="flex flex-col space-y-2">
-                    <InputField label="Username" />
-                    <InputField isPassword={true} label="Password" />
+                    <InputField label="Username"
+                        onChange={(ev) => setUsername(ev.target.value)}/>
+                    <InputField isPassword={true}
+                        label="Password"
+                        onChange={(ev) => setPassword(ev.target.value)}/>
                     <a href="#" className="text-right px-3 text-purple-500">Forgot password?</a>
                 </div>
-                <div>
-                    <Button className="w-full" buttonStyle={`${Button.styles.contained}`} text="Sign In"/>
+                <div className="flex space-x-2">
+                    <Button 
+                        className="w-full" 
+                        buttonStyle={`${Button.styles.contained}`} 
+                        text="Sign In"
+                        onClick={(ev) => doSignIn(ev)}/>
                     <Button
                         className="w-full hidden md:inline-block"
                         buttonStyle={`${Button.styles.contained}`}

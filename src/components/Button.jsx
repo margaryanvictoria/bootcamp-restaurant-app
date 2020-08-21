@@ -5,14 +5,15 @@ const propTypes = {
     text: PropTypes.string.isRequired,
     buttonStyle: PropTypes.string,
     icon: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: PropTypes.func
 }
 
 export default function Button(props) {
     const {
         buttonStyle = 'text',
         text = "Button",
-        onClick,
+        onClick = undefined,
         icon:Icon,
         className = "" } = props;
 

@@ -6,11 +6,53 @@ import Button from '../components/Button'
 
 const backgroundURL = "https://images.unsplash.com/photo-1568197260846-5e4e2aa3e9af"
 const propTypes = {
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    onSignUpResult: PropTypes.func
 }
 
 export default function Signup(props) {
-    const { onDismiss = undefined } = props;
+    const {
+        onDismiss = undefined,
+        onSignUpResult = undefined
+    } = props;
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    
+    const doSignUp = () => {
+        console.log("Signing up...")
+        fetch(
+            'http://localhost:9000/users',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fname: firstName,
+                    lname: lastName,
+                    email,
+                    username,
+                    password
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(json => {
+            if(json.code !== 200) {
+                onSignUpResult && onSignUpResult(false);
+                return console.log(json.message)
+            }
+            onSignUpResult && onSignUpResult(true);
+            console.log("User added: " + JSON.stringify(json.user))
+        })
+        .catch(err => {
+            onSignUpResult && onSignUpResult(false);
+            console.log(err)
+        })
+    }
 
     return (
         <div 
@@ -21,7 +63,7 @@ export default function Signup(props) {
                 style={{
                    zIndex: -1 
                 }}
-                className="absolute left-0 bottom-0 w-full h-full md:hidden"
+                className="absolute left-0 bottom-0 w-full h-full visible md:hidden"
                 onClick={() => {
                     onDismiss && onDismiss();
                 }} />
@@ -41,26 +83,27 @@ export default function Signup(props) {
                     </span>
                     <div className="flex flex-col">
                         <div className="inline-block mx-auto md:my-auto border border-orange-500 rounded-full p-3">
-                            <Camera className="h-8 w-8"/>
+                            <Camera className="h-6 w-6"/>
                         </div>
                         <span className="text-xs font-hairline">Upload picture</span>
                     </div>
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                    <InputField label="First Name" />
-                    <InputField label="Last Name" />
-                    <InputField label="Email" />
-                    <InputField label="Username" />
-                    <InputField label="Password" isPassword={true} />
+                    <InputField label="First Name" onChange={(ev) => setFirstName(ev.target.value)} />
+                    <InputField label="Last Name" onChange={(ev) => setLastName(ev.target.value)} />
+                    <InputField label="Email" onChange={(ev) => setEmail(ev.target.value)} />
+                    <InputField label="Username" onChange={(ev) => setUsername(ev.target.value)} />
+                    <InputField label="Password" isPassword={true} onChange={(ev) => setPassword(ev.target.value)} />
                 </div>
-                <div>
+                <div className="flex space-x-2">
                     <Button 
-                        className="mx-auto w-full text-center mb-5" 
+                        className="mx-auto w-full text-center" 
                         buttonStyle={`${Button.styles.contained}`} 
-                        text="Create" />
+                        text="Create"
+                        onClick={doSignUp} />
                     <Button 
-                        className="hidden md:visible mx-auto w-full text-center"
+                        className="hidden md:inline-block mx-auto w-full text-center"
                         buttonStyle={`${Button.styles.text}`}
                         text="Cancel"
                         onClick={ () => {
