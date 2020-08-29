@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 const propTypes = {
     label: PropTypes.string,
+    name: PropTypes.string,
+    required: PropTypes.bool,
     isPassword: PropTypes.bool,
     iconStart: PropTypes.object,
     iconEnd: PropTypes.object,
@@ -12,12 +14,15 @@ const propTypes = {
 export default function InputField(props) {
     const { 
         label:Label = "Label",
+        name = undefined,
+        required = false,
         isPassword = false,
         iconStart:IconStart = undefined, 
         iconEnd:IconEnd = undefined,
-        onChange = undefined } = props;
+        onChange = undefined
+    } = props;
     
-    const additionalClassConditions = `${IconStart ? ' material-input-with-icon-start' : ''}${IconEnd ? ' material-input-with-icon-end' : ''}`
+    const additionalClassConditions = `${IconStart ? ' material-input-with-icon-start' : ''} ${IconEnd ? ' material-input-with-icon-end' : ''}`
 
     return (
         <div className={`material-input-container${additionalClassConditions}`}>
@@ -28,8 +33,10 @@ export default function InputField(props) {
                 IconEnd && <IconEnd className="material-input-icon material-input-icon-end" />
             }
             <input className="material-input"
+                name={name} 
+                required = {required}
                 type={isPassword ? 'password' : 'text'}
-                required pattern=".*"
+                pattern=".*"
                 onChange={onChange}/>
             <label className="material-input-label">
                 <span className="material-input-label-inner">{Label}</span>

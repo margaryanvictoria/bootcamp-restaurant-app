@@ -101,7 +101,7 @@ export default function Signup(props) {
                         className="mx-auto w-full text-center" 
                         buttonStyle={`${Button.styles.contained}`} 
                         text="Create"
-                        onClick={doSignUp} />
+                        onClick={() => doSignUp()} />
                     <Button 
                         className="hidden md:inline-block mx-auto w-full text-center"
                         buttonStyle={`${Button.styles.text}`}

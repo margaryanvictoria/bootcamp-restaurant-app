@@ -9,6 +9,7 @@ export default function Main(props) {
     const [showSignup, setShowSignup] = React.useState(false);
     const [showSignin, setShowSignin] = React.useState(false);
     const {authCallback = undefined} = props;
+    const [signUpResult, setSignUpResult] = React.useState(false);
 
     return (
         <div className="h-screen md:flex"> 

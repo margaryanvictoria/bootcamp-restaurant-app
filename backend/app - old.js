@@ -248,7 +248,7 @@ function createTableLikes() {
              message: validation.error.message,
              code: res.statusCode = 400
          };
-
+         
          return res.json(result);
      }
 
@@ -317,6 +317,7 @@ function createTableLikes() {
          });
      }
 
+     //const image_url = req.protocol + "://" + req.headers.host + "/static/images/" + req.file.filename;
      const image_url = "/static/images/" + req.file.filename;
 
      const sql =
@@ -342,8 +343,8 @@ function createTableLikes() {
      const parsedUrl = url.parse(req.url, true);
 
      const schema = {
-         post_id: Joi.number().optional(),
-         user_id: Joi.number().optional()
+        post_id: Joi.number().optional(),
+        user_id: Joi.number().optional()
      }
 
      const validation = Joi.validate(parsedUrl.query, schema);
@@ -355,12 +356,11 @@ function createTableLikes() {
          });
      }
 
-     let sql = "";
-
+     let sql = '';
      if(Object.prototype.hasOwnProperty.call(parsedUrl.query, "post_id")) {
-        const post_id = Number.parseInt(parsedUrl.query.post_id);
+         const post_id = Number.parseInt(parsedUrl.query.post_id);
 
-        sql = `SELECT user_id, caption, image_url, likes, dislikes, location FROM posts WHERE post_id=${post_id};`;
+         sql = `SELECT user_id, caption, image_url, likes, dislikes, location FROM posts WHERE post_id=${post_id}`;
 
         connection.query(sql, (err, results, fields) => {
             if(err) {
@@ -378,12 +378,12 @@ function createTableLikes() {
                 post: post
             });
         });
-     } else if(Object.prototype.hasOwnProperty.call(parsedUrl.query, "user_id")) {
-         const user_id = Number.parseInt(parsedUrl.query.user_id);
+    } else if (Object.prototype.hasOwnProperty.call(parsedUrl.query, "user_id")) {
+        const user_id = Number.parseInt(parsedUrl.query.user_id);
 
-         sql = `SELECT user_id, post_id, caption, image_url, likes, dislikes, location FROM posts WHERE user_id=${user_id};`;
-
-         connection.query(sql, (err, results, fields) => {
+        sql = `SELECT user_id, caption, image_url, likes, dislikes, location FROM posts WHERE user_id=${user_id}`;
+     
+        connection.query(sql, (err, results, fields) => {
             if(err) {
                 return res.json({
                     message: err.message,
@@ -397,12 +397,12 @@ function createTableLikes() {
                 posts: results
             });
         });
-     } else {
-         return res.status(400).json({
-             message: "Did not specify a proper query parameter.",
-             code: 400
-         });
-     }
+    } else {
+        return res.status(400).json({
+            message: "Did not specify a proper query parameter.",
+            code: 400
+        });
+    }
  });
 
  app.post('/bookmarks', (req, res) => {
@@ -482,10 +482,10 @@ function createTableLikes() {
                          code: res.statusCode = 400
                      });
                  }
-
+        
                  console.log(results);
                  console.log(fields);
-
+        
                  res.json({
                      message: 'OK',
                      code: res.statusCode = 200,

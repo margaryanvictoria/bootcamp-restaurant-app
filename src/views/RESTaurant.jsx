@@ -3,6 +3,7 @@ import TabBar from '../components/TabBar';
 import Recent from './Recent';
 import Likes from './Likes';
 import Bookmarks from './Bookmarks';
+import Home from './Home';
 import {
     BrowserRouter as Router,
     Route,
@@ -16,7 +17,10 @@ export default function RESTaurant(props) {
             <Router>
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/recent" />
+                        <Redirect to="/home" />
+                    </Route>
+                    <Route path="/home">
+                        <Home />
                     </Route>
                     <Route path="/recent">
                         <Recent />
